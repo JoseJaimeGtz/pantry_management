@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pantry_management/recipe/recipes.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({
@@ -11,9 +12,20 @@ class HomePage extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Material App Bar'),
       ),
-      body: const Center(
-        child: Text('Hello World'),
-      ),
+      body: Column(
+        children: [
+          TextButton(
+            onPressed: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => Recipes(),
+                ),
+              );
+            },
+            child: Text('Recipes page')
+          )
+        ],
+      )
     );
   }
 }
