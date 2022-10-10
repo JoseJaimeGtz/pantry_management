@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pantry_management/recipe/recipes.dart';
+import 'package:pantry_management/signIn_signUp/signIn.dart';
+import 'package:pantry_management/signIn_signUp/signUp.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({
@@ -18,7 +20,7 @@ class HomePage extends StatelessWidget {
             onPressed: () {
               Navigator.of(context).push(
                 MaterialPageRoute(
-                  builder: (context) => Recipes(),
+                  builder: (context) => SignUp(),
                 ),
               );
             },

@@ -5,7 +5,6 @@ import 'package:pantry_management/recipe/item_recipe.dart';
 
 class Recipes extends StatelessWidget {
 
-  /*
   final List<Map<String, String>> _listElements = [
     {
       "title": "Arroz con pollo",
@@ -28,7 +27,7 @@ class Recipes extends StatelessWidget {
       "image": "https://i.imgur.com/trdzMAl.jpg",
     },
   ];
-  */
+  
 
   Recipes({
     Key? key,
