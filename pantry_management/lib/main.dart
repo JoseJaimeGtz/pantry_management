@@ -4,6 +4,7 @@ import 'package:pantry_management/home_page.dart';
 import 'package:pantry_management/bloc/recipes_bloc.dart';
 import 'package:pantry_management/signIn_signUp/signIn.dart';
 import 'package:pantry_management/signIn_signUp/signUp.dart';
+import 'package:pantry_management/supermarket/superMarket.dart';
 
 void main() => runApp(BlocProvider(
   create: (context) => RecipesBloc(),
@@ -17,10 +18,11 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'PantryApp',
-      home: SignUp(), // HomePage() poner la pantalla aqui
+      home: SuperMarket(), // HomePage() poner la pantalla aqui
       routes: {
         '/signIn': (context) => SignIn(),
         '/signUp': (context) => SignUp(),
+        '/superMarket': (context) => SuperMarket(),
       },
     );
   }

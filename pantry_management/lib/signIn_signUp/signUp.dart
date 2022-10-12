@@ -195,7 +195,9 @@ class _SignUpState extends State<SignUp> {
                             ),
                           ),
                           TextButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              Navigator.pushNamed(context, '/signIn');
+                            },
                             child: Text('Sign In',
                               style: TextStyle(
                                 color: Color.fromARGB(255, 112, 49, 155),

@@ -225,7 +225,9 @@ bool showPassword = false;
                             ),
                           ),
                           TextButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              Navigator.pushNamed(context, '/signUp');
+                            },
                             child: Text('Sign Up',
                               style: TextStyle(
                                 color: Color.fromARGB(255, 112, 49, 155),
