@@ -24,7 +24,7 @@ class ItemRecipe extends StatelessWidget {
                 child: Image.network(
                   '${recipe["image"]}',
                  fit: BoxFit.fill),
-                onTap: (){
+                onTap: (){   //dar click en la imagen para ver detalles de la receta
                 },
               ),
             ),
@@ -56,37 +56,6 @@ class ItemRecipe extends StatelessWidget {
                 ),
               ),
             ),
-            Positioned(
-              child: IconButton(
-                enableFeedback: false,
-                tooltip: "Quitar de favoritos",
-                splashColor: Colors.transparent,
-                icon: Icon(Icons.favorite, color: Colors.white, size: 20,),
-                color: Colors.white,
-                onPressed: () {
-                  showDialog<String>(
-                  context: context,
-                  builder: (BuildContext context) => AlertDialog(
-                    title: const Text('Quitar de Favoritos'),
-                    content: const Text('El elemento será eliminado de tus Favoritos ¿Quieres continuar?'),
-                    actions: <Widget>[
-                      TextButton(
-                        onPressed: () => Navigator.pop(context, 'Cancel'),
-                        child: const Text('Cancelar', style: TextStyle(color: Color.fromARGB(250, 140, 130, 190))),
-                      ),
-                      TextButton(
-                        onPressed: () {
-                          //context.read<Recipe_Provider>().addRecipe(recipe);
-                          Navigator.pop(context, 'OK');
-                        },
-                        child: const Text('Continuar', style: TextStyle(color: Color.fromARGB(250, 140, 130, 190))),
-                      ),
-                    ]
-                  )
-                );
-                },
-              ),
-            )
           ],
         ),
       ),
