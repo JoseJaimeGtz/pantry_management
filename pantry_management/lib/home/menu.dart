@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:pantry_management/supermarket/superMarket.dart';
 
 Widget userMenu(BuildContext context) {
     return Drawer(
@@ -37,32 +38,28 @@ Widget userMenu(BuildContext context) {
             leading: Icon(FontAwesomeIcons.burger, size: 20),
             title: const Text('Your Food'),
             trailing: Icon(Icons.keyboard_arrow_right_sharp),
-            onTap: () {
-            },
+            onTap: () => Navigator.pushNamed(context, '/yourFood')
           ),
           ListTile(
             minLeadingWidth: 40 - 20,
             leading: Icon(FontAwesomeIcons.bookOpen, size: 20),
             title: const Text('Recipes'),
             trailing: Icon(Icons.keyboard_arrow_right_sharp),
-            onTap: () {
-            },
+            onTap: () => Navigator.pushNamed(context, '/recipes')
           ),
           ListTile(
             minLeadingWidth: 40 - 20,
             leading: Icon(FontAwesomeIcons.cartShopping, size: 20),
             title: const Text('SMKT map'),
             trailing: Icon(Icons.keyboard_arrow_right_sharp),
-            onTap: () {
-            },
+            onTap: () => Navigator.pushNamed(context, '/superMarket')
           ),
           SizedBox(height:250),
           ListTile(
             minLeadingWidth: 40 - 20,
             leading: Icon(FontAwesomeIcons.gear, size: 20),
             title: const Text('Settings'),
-            onTap: () {
-            },
+            onTap: () => Navigator.pushNamed(context, '/settings')
           ),
         ],
       ),

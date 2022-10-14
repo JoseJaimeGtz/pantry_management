@@ -40,6 +40,7 @@ class Recipes extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: Container(width:250, child: userMenu(context)),
       appBar: AppBar(
         title: const Text('Recipes'),
       ),
@@ -52,7 +53,6 @@ class Recipes extends StatelessWidget {
           )
         ],
       ),
-      drawer: Container(width:250, child: userMenu(context)),
     );
   }
 
