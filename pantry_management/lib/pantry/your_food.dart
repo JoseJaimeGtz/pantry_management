@@ -2,6 +2,7 @@ import 'package:easy_search_bar/easy_search_bar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:pantry_management/pantry/date_picker.dart';
 
 import '../home/menu.dart';
 
@@ -77,21 +78,7 @@ class _YourFoodState extends State<YourFood> {
                                     hintText: "Quantity",
                                   ),
                                 ),
-                                TextFormField(
-                                  enabled: true,
-                                  decoration: InputDecoration(
-                                    prefixIconConstraints: BoxConstraints(
-                                        minWidth: 23, maxHeight: 20),
-                                    prefixIcon: Padding(
-                                      padding: const EdgeInsets.only(right: 20),
-                                      child: Icon(
-                                        FontAwesomeIcons.calendarWeek,
-                                        color: Color.fromARGB(255, 122, 39, 160)
-                                      ),
-                                    ),
-                                    hintText: "Expiration Date",
-                                  ),
-                                ),
+                                DatePickerExample()
                               ],
                             ),
                             actions: <Widget>[
@@ -122,3 +109,7 @@ class _YourFoodState extends State<YourFood> {
         drawer: Container(width: 250, child: userMenu(context)));
   }
 }
+
+
+
+
