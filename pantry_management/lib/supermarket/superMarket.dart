@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pantry_management/home/menu.dart';
 
 void main() => runApp(const SuperMarket());
 
@@ -8,27 +9,27 @@ class SuperMarket extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Material App',
       home: Scaffold(
+        drawer: Container(width:250, child: userMenu(context)),
         appBar: AppBar(
-          title: Icon(Icons.keyboard_backspace)
+          title: Text("Supermarkets")
         ),
-        body: Column(
+        body: ListView(
           children: [
-            Row(
+            Column(
               children: [
-                Text("Supermarkets"),
+                Container(
+                  child: Column(
+                    children: [
+                      // Map API here.
+                      // map image
+                      Image.asset('assets/IMG_7388.PNG')
+                    ],
+                  ),
+                )
               ],
             ),
-            Container(
-              child: Column(
-                children: [
-                  // map image
-                  Image.asset('/assets/googleMaps.png')
-                ],
-              ),
-            )
-          ],
+          ]
         )
       ),
     );
