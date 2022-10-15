@@ -8,30 +8,28 @@ class SuperMarket extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        drawer: Container(width:250, child: userMenu(context)),
-        appBar: AppBar(
-          title: Text("Supermarkets")
-        ),
-        body: ListView(
-          children: [
-            Column(
-              children: [
-                Container(
-                  child: Column(
-                    children: [
-                      // Map API here.
-                      // map image
-                      Image.asset('assets/IMG_7388.PNG')
-                    ],
-                  ),
-                )
-              ],
-            ),
-          ]
-        )
+    return Scaffold(
+      drawer: Container(width:250, child: userMenu(context)),
+      appBar: AppBar(
+        title: Text("Supermarkets")
       ),
+      body: ListView(
+        children: [
+          Column(
+            children: [
+              Container(
+                child: Column(
+                  children: [
+                    // Map API here.
+                    // map image
+                    Image.asset('assets/IMG_7388.PNG')
+                  ],
+                ),
+              )
+            ],
+          ),
+        ]
+      )
     );
   }
 }
