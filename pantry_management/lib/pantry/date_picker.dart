@@ -35,13 +35,10 @@ class _DatePickerExampleState extends State<DatePickerExample> {
   @override
   Widget build(BuildContext context) {
     return Row(
-        //mainAxisSize: MainAxisSize.max,
-        //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           DefaultTextStyle(
             style: TextStyle(
               color: Color.fromARGB(255, 98, 98, 101),
-              //CupertinoColors.label.resolveFrom(context),
               fontSize: 16.0,
             ),
             child: Center(

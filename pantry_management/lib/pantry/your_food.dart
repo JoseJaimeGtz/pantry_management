@@ -1,10 +1,11 @@
 import 'package:easy_search_bar/easy_search_bar.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pantry_management/pantry/date_picker.dart';
 
 import '../home/menu.dart';
+import 'alert_food.dart';
+import 'item_list.dart';
 
 class YourFood extends StatefulWidget {
   const YourFood({
@@ -17,7 +18,6 @@ class YourFood extends StatefulWidget {
 
 class _YourFoodState extends State<YourFood> {
   String searchValue = '';
-  
 
   @override
   Widget build(BuildContext context) {
@@ -40,76 +40,125 @@ class _YourFoodState extends State<YourFood> {
                 color: Colors.white,
               ),
               onPressed: () {
-                print("Hola");
+                //Mostrar el modal para agregar los productos
                 showDialog<String>(
                     context: context,
-                    builder: (BuildContext context) => AlertDialog(
-                            title: const Text('Add product'),
-                            content: Column(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                TextFormField(
-                                  enabled: true,
-                                  decoration: InputDecoration(
-                                    prefixIconConstraints: BoxConstraints(
-                                        minWidth: 23, maxHeight: 20),
-                                    prefixIcon: Padding(
-                                      padding: const EdgeInsets.only(right: 20),
-                                      child: Icon(
-                                        FontAwesomeIcons.carrot,
-                                        color: Color.fromARGB(255, 122, 39, 160)
-                                      ),
-                                    ),
-                                    hintText: "Product Name",
-                                  ),
-                                ),
-                                TextFormField(
-                                  enabled: true,
-                                  decoration: InputDecoration(
-                                    prefixIconConstraints: BoxConstraints(
-                                        minWidth: 23, maxHeight: 20),
-                                    prefixIcon: Padding(
-                                      padding: const EdgeInsets.only(right: 20),
-                                      child: Icon(
-                                        FontAwesomeIcons.hashtag,
-                                        color: Color.fromARGB(255, 122, 39, 160)
-                                      ),
-                                    ),
-                                    hintText: "Quantity",
-                                  ),
-                                ),
-                                DatePickerExample()
-                              ],
-                            ),
-                            actions: <Widget>[
-                              TextButton(
-                                onPressed: () =>
-                                    Navigator.pop(context, 'Cancel'),
-                                child: const Text('Cancelar',
-                                    style: TextStyle(
-                                        color:Color.fromARGB(255, 122, 39, 160))),
-                              ),
-                              TextButton(
-                                onPressed: () {
-                                  //context.read<Recipe_Provider>().addRecipe(recipe);
-                                  Navigator.pop(context, 'OK');
-                                },
-                                child: const Text('Continuar',
-                                    style: TextStyle(
-                                        color: Color.fromARGB(255, 122, 39, 160))),
-                              ),
-                            ]));
+                    builder: (BuildContext context) => AlertFood());
               },
             )
           ],
         ),
-        body: Column(
-          children: [],
-        ),
+        body: SafeArea(
+            child: SingleChildScrollView(
+          child: Column(
+            children: [
+              Padding(
+                padding: EdgeInsets.only(top: 40, bottom: 25),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text("Expires soon",
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black,
+                        )),
+                    SizedBox(width: 20),
+                    Icon(FontAwesomeIcons.calendarXmark)
+                  ],
+                ),
+              ),
+              //First ListView
+              ListView(
+                physics: const NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
+                children: [
+                  ListHeader(),
+                  ItemList(),
+                  ItemList(),
+                  ItemList(),
+                  ItemList(),
+                  ItemList(),
+                  ItemList()
+                ],
+              ),
+              Padding(
+                padding: EdgeInsets.only(top: 40, bottom: 25),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text("Expires later",
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black,
+                        )),
+                         SizedBox(width: 20),
+                    Icon(FontAwesomeIcons.calendarCheck)
+                  ],
+                ),
+              ),
+              //Second ListView
+              ListView(
+                physics: const NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
+                children: [
+                  ListHeader(),
+                  ItemList(),
+                  ItemList(),
+                  ItemList(),
+                  ItemList(),
+                  ItemList(),
+                  ItemList(),
+                  ItemList()
+                ],
+              )
+            ],
+          ),
+        )),
         drawer: Container(width: 250, child: userMenu(context)));
   }
 }
 
+class ListHeader extends StatelessWidget {
+  const ListHeader({
+    Key? key,
+  }) : super(key: key);
 
-
-
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      elevation: 5.0,
+      shadowColor: Color.fromARGB(255, 85, 26, 156),
+      child: Container(
+        color: Color.fromARGB(255, 110, 110, 110),
+        child: ListTile(
+          visualDensity: VisualDensity(vertical: -4),
+          title: Padding(
+            padding: EdgeInsets.only(left: 10, right: 10),
+            child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    "Product",
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold),
+                  ),
+                  Text(
+                    "Quantity",
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold),
+                  ),
+                  Text(
+                    "Exp. Date",
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold),
+                  ),
+                ]),
+          ),
+        ),
+      ),
+    );
+  }
+}
