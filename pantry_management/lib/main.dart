@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pantry_management/bloc/recipes_bloc.dart';
 import 'package:pantry_management/pantry/date_picker.dart';
 import 'package:pantry_management/pantry/your_food.dart';
+import 'package:pantry_management/recipe/recipe_details.dart';
 import 'package:pantry_management/recipe/recipes.dart';
 import 'package:pantry_management/settings.dart';
 import 'package:pantry_management/signIn_signUp/signIn.dart';
@@ -30,7 +31,7 @@ class MyApp extends StatelessWidget {
         ),
       ),
       title: 'PantryApp',
-      home: Recipes(), // HomePage() poner la pantalla aqui
+      home: RecipeDetails(), // HomePage() poner la pantalla aqui
       routes: {
         '/signIn': (context) => SignIn(),
         '/signUp': (context) => SignUp(),
@@ -38,6 +39,7 @@ class MyApp extends StatelessWidget {
         '/yourFood':(context) => YourFood(),
         '/settings': (context) => Settings(),
         '/superMarket': (context) => SuperMarket(),
+        '/recipeDetails': (context) => RecipeDetails(),
       },
     );
   }
