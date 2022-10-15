@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pantry_management/home/menu.dart';
 
 void main() => runApp(const RecipeDetails());
@@ -30,23 +31,53 @@ class RecipeDetails extends StatelessWidget {
                 ],
               ),
             ),
-            SizedBox(height: 20,),
             Padding(
-              padding: const EdgeInsets.all(10),
-              child: Row(
-                children: [
-                  Text("Cooking Time: ", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 19),),
-                  Text('45 minutes', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),)
-                ],
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(10),
-              child: Row(
-                children: [
-                  Text("Servings: ", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 19),),
-                  Text('10', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),)
-                ],
+              padding: EdgeInsets.all(10),
+              child: Container(
+                decoration: BoxDecoration(
+                  border: Border.all(color: Color.fromARGB(255, 111, 111, 111))
+                ),
+                child: Padding(
+                  padding: EdgeInsets.all(10),
+                  child: IntrinsicHeight(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Column(
+                          children: [
+                            Icon(
+                            FontAwesomeIcons.userGroup, 
+                            color: Color.fromARGB(255, 122, 39, 160)
+                            ),
+                            SizedBox(height: 8),
+                            Text(
+                              "Servings",
+                              style: TextStyle(fontWeight: FontWeight.bold)
+                            ),
+                             SizedBox(height: 2),
+                            Text("10")
+                          ],
+                        ),
+                        VerticalDivider(thickness: 2, color: Colors.grey),
+                        Column(
+                          children: [
+                            Icon(
+                            FontAwesomeIcons.stopwatch, 
+                            color: Color.fromARGB(255, 122, 39, 160),
+                            ),
+                            SizedBox(height: 8),
+                            Text(
+                              "Cooking Time",
+                              style: TextStyle(fontWeight: FontWeight.bold)
+                            ),
+                             SizedBox(height: 2),
+                            Text("45 min")
+                          ],
+                        )
+                      ],
+                    ),
+                  ),
+                ),
               ),
             ),
             Padding(
