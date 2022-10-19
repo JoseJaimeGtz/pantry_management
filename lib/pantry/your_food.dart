@@ -1,7 +1,7 @@
-import 'package:easy_search_bar/easy_search_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:easy_search_bar/easy_search_bar.dart';
 import 'package:pantry_management/pantry/date_picker.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../home/menu.dart';
 import 'alert_food.dart';
@@ -91,7 +91,7 @@ class _YourFoodState extends State<YourFood> {
                           fontWeight: FontWeight.bold,
                           color: Colors.black,
                         )),
-                         SizedBox(width: 20),
+                        SizedBox(width: 20),
                     Icon(FontAwesomeIcons.calendarCheck)
                   ],
                 ),

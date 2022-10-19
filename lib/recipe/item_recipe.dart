@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:pantry_management/provider/recipe_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:pantry_management/provider/recipe_provider.dart';
 import 'dart:ui' as ui;
 
 class ItemRecipe extends StatelessWidget {
@@ -23,7 +23,7 @@ class ItemRecipe extends StatelessWidget {
               child: GestureDetector(
                 child: Image.network(
                   '${recipe["image"]}',
-                 fit: BoxFit.fill),
+                  fit: BoxFit.fill),
                 onTap: (){   //dar click en la imagen para ver detalles de la receta
                 },
               ),
