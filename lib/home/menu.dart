@@ -4,8 +4,8 @@ import 'package:pantry_management/supermarket/superMarket.dart';
 
 Widget userMenu(BuildContext context) {
     return Drawer(
-      child: ListView(
-        padding: EdgeInsets.zero,
+      child: Column(
+        // padding: EdgeInsets.zero,
         children: [
           SizedBox(
             height: 300,
@@ -15,20 +15,33 @@ Widget userMenu(BuildContext context) {
               ),
               child: Column(
                 children: <Widget>[ 
-                  Padding(
-                    padding: EdgeInsets.only(right: 300),
-                    child: Icon(Icons.close, color: Color.fromARGB(255, 122, 39, 160)) //no se detecta el click
+                  // SizedBox(height: 20),
+                  ListTile(
+                    title: Row(
+                      children: [
+                        IconButton(
+                          onPressed: () {
+                            print('cerrado');
+                            Navigator.pop(context);
+                          },
+                          icon: Icon(Icons.close, color: Color.fromARGB(255, 122, 39, 160)) //no se detecta el click
+                        ),
+                      ],
+                    ),
                   ),
-                  SizedBox(height: 20),
                   CircleAvatar(
-                      backgroundColor: Colors.amber,
-                      backgroundImage: NetworkImage(
-                          'https://cdn2.psychologytoday.com/assets/styles/manual_crop_1_91_1_1528x800/public/field_blog_entry_images/2018-09/shutterstock_648907024.jpg?itok=7lrLYx-B'),
-                      radius: 50.0),
+                    backgroundColor: Colors.amber,
+                    backgroundImage: NetworkImage(
+                      'https://cdn2.psychologytoday.com/assets/styles/manual_crop_1_91_1_1528x800/public/field_blog_entry_images/2018-09/shutterstock_648907024.jpg?itok=7lrLYx-B'
+                    ),
+                    radius: 50.0
+                  ),
                   Text('Johana Doe',
-                      style: TextStyle(fontWeight: FontWeight.bold)),
+                    style: TextStyle(fontWeight: FontWeight.bold)
+                  ),
                   Text('johana@company.com',
-                      style: TextStyle(fontWeight: FontWeight.w300)),
+                    style: TextStyle(fontWeight: FontWeight.w300)
+                  ),
                 ],
               ),
             ),

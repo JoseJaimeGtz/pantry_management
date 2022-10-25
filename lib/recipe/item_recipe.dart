@@ -1,8 +1,5 @@
-import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:url_launcher/url_launcher.dart';
-import 'package:pantry_management/provider/recipe_provider.dart';
 import 'dart:ui' as ui;
+import 'package:flutter/material.dart';
 
 class ItemRecipe extends StatelessWidget {
   final dynamic recipe;
@@ -25,6 +22,7 @@ class ItemRecipe extends StatelessWidget {
                   '${recipe["image"]}',
                   fit: BoxFit.fill),
                 onTap: (){   //dar click en la imagen para ver detalles de la receta
+                Navigator.pushNamed(context, '/recipeDetails'); // Dummy
                 },
               ),
             ),
@@ -35,9 +33,9 @@ class ItemRecipe extends StatelessWidget {
               child: ClipRRect(
                 child: BackdropFilter(
                   filter: ui.ImageFilter.blur(
-            sigmaX: 5.0,
-            sigmaY: 5.0,
-          ),
+                    sigmaX: 5.0,
+                    sigmaY: 5.0,
+                  ),
                   child: Container(
                     padding: EdgeInsets.all(10),
                     color: Color.fromARGB(140, 122, 39, 160),
@@ -62,7 +60,7 @@ class ItemRecipe extends StatelessWidget {
     );
   }
 
- /* Future<void> _launchUrl(String url) async {
+/* Future<void> _launchUrl(String url) async {
     if (!await launchUrl(Uri.parse(url))) {
       throw 'Could not launch $url';
     }
