@@ -72,6 +72,7 @@ flutter:
   assets:
     - googleMaps.png
     - assets/IMG_7388.PNG
+    - .env
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
