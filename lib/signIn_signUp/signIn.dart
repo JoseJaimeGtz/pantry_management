@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:pantry_management/http_requests/http_request_search_recipes_by_ingredients.dart';
+import 'package:pantry_management/http_requests/http_requests.dart';
 
 
 class SignIn extends StatefulWidget {
@@ -11,9 +11,6 @@ class SignIn extends StatefulWidget {
 }
 final _emailController = TextEditingController();
 final _passwordController = TextEditingController();
-
-
-var request = HttpRequest();
 
 class _SignInState extends State<SignIn> {
 
@@ -161,9 +158,7 @@ bool showPassword = false;
                           Expanded(
                             child: ElevatedButton(
                               onPressed: () {
-                                // print(request.getRecipesByIngredients('apples,flour,sugar'));
-                                // print(request.getSimilarRecipes('156992'));
-                                print(request.getRecipeInformation('156992'));
+                                
                               },
                               child: Text('Sign In',
                                 style: TextStyle(

@@ -4,5 +4,10 @@ abstract class SearchRecipesByIngredientsEvent extends Equatable {
   const SearchRecipesByIngredientsEvent();
 
   @override
-  List<Object> get props => [];
+  List<Object> get props => []; // or an empty string ''
+}
+
+class SearchRecipesByIngredients extends SearchRecipesByIngredientsEvent {
+  final String query;
+  SearchRecipesByIngredients({ required this.query });
 }

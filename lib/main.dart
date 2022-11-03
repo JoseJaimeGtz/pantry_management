@@ -33,7 +33,7 @@ class MyApp extends StatelessWidget {
         ),
       ),
       title: 'PantryApp',
-      home: SignIn(), // HomePage() poner la pantalla aqui
+      home: YourFood(), // HomePage() poner la pantalla aqui
       routes: {
         '/signIn': (context) => SignIn(),
         '/signUp': (context) => SignUp(),

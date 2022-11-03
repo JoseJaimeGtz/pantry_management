@@ -85,6 +85,8 @@ class HttpRequest {
   }
 
   String makeRecipesByIngredientsURL(X_RapidAPI_Host, ingredients, totalRecipesResponse) {
+    ingredients = ingredients.toLowerCase();
+    ingredients = ingredients.replaceAll(' ', '');
     ingredients = ingredients.replaceAll(',', '%2C');
     var incompleteUrl = 'https://${X_RapidAPI_Host}/recipes/findByIngredients?ingredients=${ingredients}&number=${totalRecipesResponse}&ignorePantry=true&ranking=1';
     return incompleteUrl;
