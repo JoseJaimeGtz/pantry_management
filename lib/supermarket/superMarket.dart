@@ -1,15 +1,16 @@
 import 'dart:convert';
-import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:pantry_management/home/menu.dart';
 import 'package:http/http.dart' as http;
+import 'package:pantry_management/supermarket/directions.dart';
+import 'package:pantry_management/supermarket/directions_repository.dart';
 import 'package:pantry_management/supermarket/nearby_places_response.dart';
-import 'package:flutter_config/flutter_config.dart';
 
 void main() => runApp(const SuperMarket());
 
@@ -32,11 +33,21 @@ class _SuperMarketState extends State<SuperMarket> {
   //NearbyPlacesResponse
   NearbyPlacesResponse nearbyPlaces = NearbyPlacesResponse();
 
+  Directions _routes = Directions(
+    bounds: LatLngBounds(southwest: LatLng(20.6256664,-103.448254), northeast: LatLng(20.6256664,-103.448254)), 
+    polylinePoints: PolylinePoints().decodePolyline(""), 
+    totalDistance: "0", 
+    totalDuration: "0"
+    );
+  //late Directions _routes;
+
   //card
   bool show = false;
   int infoId = -1;
 
   //Routes
+  //var _line = Polyline(polylineId: PolylineId('routeLine'));
+  var _line = null;
 
   @override
   Widget build(BuildContext context) {
@@ -61,19 +72,19 @@ class _SuperMarketState extends State<SuperMarket> {
                       child: Container(
                           child: show ? InfoCard(context) : Text(""))),
                   Positioned(
-                    top: 20,
-                    left: 12,
-                    //right: 10,
-                    child:FloatingActionButton(
-                      backgroundColor: Colors.white,
-                      highlightElevation: 10.0,
-                      onPressed: () {
-                        showUserLocation();
-                      },
-                      //share_location_outlined
-                      child: Icon(Icons.my_location, size:30, color: Color.fromARGB(255, 87, 85, 85))
-                    )
-                  ),
+                      top: 20,
+                      left: 12,
+                      //right: 10,
+                      child: FloatingActionButton(
+                          backgroundColor: Colors.white,
+                          highlightElevation: 10.0,
+                          onPressed: () {
+                            showUserLocation();
+                          },
+                          //share_location_outlined
+                          child: Icon(Icons.my_location,
+                              size: 30,
+                              color: Color.fromARGB(255, 87, 85, 85)))),
                 ]),
                 drawer: Container(width: 250, child: userMenu(context)),
               )
@@ -116,8 +127,6 @@ class _SuperMarketState extends State<SuperMarket> {
           return Scaffold(
             body: Stack(
               fit: StackFit.expand,
-              //fit: StackFit.loose,
-              //alignment: AlignmentDirectional.topStart,
               children: children,
             ),
           );
@@ -128,7 +137,6 @@ class _SuperMarketState extends State<SuperMarket> {
 
   GoogleMap initializeMap() {
     if (markers.length == 0) {
-      //showUserLocation();
       _getNearbyPlaces();
     }
 
@@ -139,13 +147,24 @@ class _SuperMarketState extends State<SuperMarket> {
       zoomControlsEnabled: true,
       myLocationEnabled: true,
       myLocationButtonEnabled: false,
-      //padding: EdgeInsets.only(bottom: 640.0, right: 300),
       onMapCreated: (GoogleMapController controller) {
         googleMapController = controller;
       },
+      polylines: {
+        //if (_routes != null)
+        _line = Polyline(
+            polylineId: const PolylineId('overview_polyline'),
+            color: Colors.blue,
+            width: 5,
+            points: _routes.polylinePoints
+                .map((e) => LatLng(e.latitude, e.longitude))
+                .toList(),
+          ),
+      },
       onTap: (argument) {
         show = false;
-        //print(show);
+        //_line.setMap(null);
+        //_line.clear();
         setState(() {});
       },
     );
@@ -162,18 +181,6 @@ class _SuperMarketState extends State<SuperMarket> {
     googleMapController.animateCamera(CameraUpdate.newCameraPosition(
         CameraPosition(
             target: LatLng(position.latitude, position.longitude), zoom: 14)));
-
-     /*String imgurl = "https://cdn-icons-png.flaticon.com/128/5693/5693831.png";
-    Uint8List bytes = (await NetworkAssetBundle(Uri.parse(imgurl)).load(imgurl))
-        .buffer
-        .asUint8List();
-
-    //markers.clear();
-
-   markers.add(Marker(
-        markerId: const MarkerId('currentLocation'),
-        position: LatLng(position.latitude, position.longitude),
-        icon: BitmapDescriptor.fromBytes(bytes)));*/
 
     setState(() {});
   }
@@ -199,8 +206,7 @@ class _SuperMarketState extends State<SuperMarket> {
     }
 
     Position position = await Geolocator.getCurrentPosition(
-    desiredAccuracy: LocationAccuracy.high);
-    print('position $position');
+        desiredAccuracy: LocationAccuracy.high);
     return position;
   }
 
@@ -215,8 +221,6 @@ class _SuperMarketState extends State<SuperMarket> {
     Position position = await _determinePosition();
     String radius = "10000";
 
-    print(api_key);
-
     var url = Uri.parse(
         'https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=' +
             position.latitude.toString() +
@@ -228,8 +232,6 @@ class _SuperMarketState extends State<SuperMarket> {
             '&key=' +
             api_key);
 
-    print(url);
-
     var response = await http.post(url);
 
     nearbyPlaces = NearbyPlacesResponse.fromJson(jsonDecode(response.body));
@@ -240,14 +242,14 @@ class _SuperMarketState extends State<SuperMarket> {
         .asUint8List();
 
     for (int i = 0; i < nearbyPlaces.results!.length; i++) {
-      print(nearbyPlaces.results![i].name);
       double lat = nearbyPlaces.results![i].geometry!.location!.lat!;
       double lng = nearbyPlaces.results![i].geometry!.location!.lng!;
       String name = nearbyPlaces.results![i].name!;
       dynamic rating = nearbyPlaces.results![i].rating;
+      String placeId = nearbyPlaces.results![i].placeId!;
 
       if (rating == null) rating = "No";
-    
+
       String id = "supermarket${i}";
 
       markers.add(
@@ -256,14 +258,19 @@ class _SuperMarketState extends State<SuperMarket> {
           position: LatLng(lat, lng),
           icon: BitmapDescriptor.fromBytes(bytes),
           infoWindow: InfoWindow(title: name, snippet: '${rating} Star Rating'),
-          onTap: () {
+          onTap: () async {
             show = true;
             infoId = i;
+
+            _routes = await DirectionsRepository()
+                .getDirections(placeId, position, api_key);
+      
+            //setState(() => _info = directions);
+
             setState(() {});
           },
         ),
       );
-
     }
     setState(() {});
   }
@@ -292,7 +299,6 @@ class _SuperMarketState extends State<SuperMarket> {
                   padding: EdgeInsets.only(top: 12, left: 12),
                   child: Column(
                     children: [
-                      // Text("Opening Hours:", style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600)),
                       Padding(
                         padding: const EdgeInsets.all(4.0),
                         child: openingHours
@@ -310,8 +316,11 @@ class _SuperMarketState extends State<SuperMarket> {
                       Padding(
                         padding: const EdgeInsets.all(6.0),
                         child: Text(
-                            '${nearbyPlaces.results![infoId].vicinity!}',
-                            style: TextStyle(fontSize: 16)),
+                          '${nearbyPlaces.results![infoId].vicinity!}',
+                          style: TextStyle(fontSize: 16),
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 4,
+                        ),
                       ),
                     ],
                   ),
@@ -325,8 +334,30 @@ class _SuperMarketState extends State<SuperMarket> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
+                      Container(
+                        padding: EdgeInsets.only(left:20, top:8, right:30, bottom:2),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Icon(Icons.time_to_leave,
+                                color: Color.fromARGB(255, 74, 14, 102)),
+                            Text("${_routes.totalDistance}"),
+                          ],
+                        ),
+                      ),
+                      Container(
+                        padding: EdgeInsets.only(left:20, top:8, right:30, bottom:2),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Icon(Icons.timer_outlined,
+                                color: Color.fromARGB(255, 74, 14, 102)),
+                            Text("${_routes.totalDuration}"),
+                          ],
+                        ),
+                      ),
                       IconButton(
-                        onPressed: (){},
+                        onPressed: () {},
                         icon: Icon(
                           Icons.directions,
                           size: 50,
@@ -334,8 +365,8 @@ class _SuperMarketState extends State<SuperMarket> {
                         ),
                       ),
                       Padding(
-                        padding: EdgeInsets.only(top:20),
-                        child: Text("Show directions"))
+                          padding: EdgeInsets.only(top: 20),
+                          child: Text("Show directions"))
                     ],
                   )),
             ],

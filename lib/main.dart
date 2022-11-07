@@ -8,7 +8,6 @@ import 'package:pantry_management/signIn_signUp/signUp.dart';
 import 'package:pantry_management/recipe/recipe_details.dart';
 import 'package:pantry_management/supermarket/superMarket.dart';
 import 'package:pantry_management/recipe/bloc/recipes_bloc.dart';
-import 'package:pantry_management/supermarket/supermaket.dart';
 import 'package:flutter_config/flutter_config.dart';
 
 Future<void> main() async{

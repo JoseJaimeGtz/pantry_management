@@ -92,13 +92,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.5"
-  custom_info_window:
+  dio:
     dependency: "direct main"
     description:
-      name: custom_info_window
+      name: dio
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.0.1"
+    version: "4.0.6"
   easy_search_bar:
     dependency: "direct main"
     description:
@@ -167,6 +167,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.7"
+  flutter_polyline_points:
+    dependency: "direct main"
+    description:
+      name: flutter_polyline_points
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.0"
   flutter_svg:
     dependency: "direct main"
     description:

@@ -52,3 +52,4 @@ pubspect.lock
 .metadata
 android/app/src/main/res/values/secrets.xml
 ios/Runner/secrets.swift
+ios/Runner/AppDelegate.swift
