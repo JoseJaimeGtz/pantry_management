@@ -35,7 +35,7 @@ class RecipeDetails extends StatelessWidget {
               padding: EdgeInsets.all(10),
               child: Container(
                 decoration: BoxDecoration(
-                  border: Border.all(color: Color.fromARGB(255, 111, 111, 111))
+                  border: Border.all(color: Color.fromARGB(0, 45, 42, 42))
                 ),
                 child: Padding(
                   padding: EdgeInsets.all(10),
