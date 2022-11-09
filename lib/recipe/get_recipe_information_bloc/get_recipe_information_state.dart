@@ -8,3 +8,16 @@ abstract class GetRecipeInformationState extends Equatable {
 }
 
 class GetRecipeInformationInitial extends GetRecipeInformationState {}
+
+class GetRecipeInformationLoading extends GetRecipeInformationState {}
+
+class GetRecipeInformationLoaded extends GetRecipeInformationState {
+  final List<dynamic> informationLoaded;
+  GetRecipeInformationLoaded({ required this.informationLoaded });
+}
+
+class GetRecipeInformationError extends GetRecipeInformationState {
+  final String error;
+  GetRecipeInformationError({ required this.error });
+}
+

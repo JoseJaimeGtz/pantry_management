@@ -17,9 +17,9 @@ class SearchRecipesByIngredientsBloc extends Bloc<SearchRecipesByIngredientsEven
 
     try {
       final res = await request.getRecipesByIngredients(event.query);
-      if (res[0] != null) { // verify 
+      if (res[0] != null) {
 
-        // Recipe Information
+        // All Recipes
         var recipes = [];
         for (var recipe in res) {
 
