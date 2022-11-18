@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pantry_management/home/menu.dart';
+import 'package:pantry_management/signIn_signUp/auth_bloc/auth_bloc.dart';
 
 class Settings extends StatefulWidget {
   const Settings({super.key});
@@ -96,7 +98,11 @@ class _SettingsState extends State<Settings> {
                   ),
                   Container(
                     child: ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        print("Signing out");
+                        Navigator.of(context).pop();
+                        BlocProvider.of<AuthBloc>(context).add(SignOutEvent());
+                      },
                       child: Text('Log out',
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
