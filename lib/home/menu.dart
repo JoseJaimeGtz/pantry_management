@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:pantry_management/signIn_signUp/auth_bloc/auth_bloc.dart';
 import 'package:pantry_management/supermarket/superMarket.dart';
 
 Widget userMenu(BuildContext context) {
@@ -67,12 +69,23 @@ Widget userMenu(BuildContext context) {
             trailing: Icon(Icons.keyboard_arrow_right_sharp),
             onTap: () => Navigator.pushNamed(context, '/superMarket')
           ),
+          ListTile(
+            minLeadingWidth: 40 - 20,
+            leading: Icon(Icons.logout, size: 25),
+            title: const Text('Log Out'),
+            trailing: Icon(Icons.keyboard_arrow_right_sharp),
+            onTap: () {
+               BlocProvider.of<AuthBloc>(context).add(SignOutEvent());
+            }
+          ),
           SizedBox(height:250),
           ListTile(
             minLeadingWidth: 40 - 20,
             leading: Icon(FontAwesomeIcons.gear, size: 20),
             title: const Text('Settings'),
-            onTap: () => Navigator.pushNamed(context, '/settings')
+            onTap: () {
+              Navigator.pushNamed(context, '/settings');
+            } 
           ),
         ],
       ),

@@ -17,8 +17,24 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<GoogleAuthEvent>(_authUser);
     on<SignInEvent>(_signIn);
     on<SignOutEvent>(_signOut);
+    on<CreateUserEvent>(_createUser);
   }
 
+  FutureOr<void> _createUser(event, emit) async{
+    emit(AuthAwaitingState());
+    try{
+      bool state = await _authRepo.createNewUser(event.email, event.password);
+      if(state){
+        emit(CreateUserSuccess());
+      }else{
+        emit(CreateUserError());
+      }
+    }catch(e){
+      print("Error al crear usuario");
+      emit(CreateUserError());
+    }
+  }
+  
   FutureOr<void> _signIn(event, emit) async {
     emit(AuthAwaitingState());
     try {
@@ -56,8 +72,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       print(e);
       emit(AuthErrorState());
     }
-    
-    
       //await _authRepo.signOutGoogleUser();
       //await _authRepo.signOutFirebaseUser();
    // }

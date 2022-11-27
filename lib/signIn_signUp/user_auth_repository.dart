@@ -25,9 +25,9 @@ class UserAuthRepository {
     await _googleSignIn.signOut();
   }
 
-  Future<void> createNewUser(email, password) async {
-    print("Receivded ${email}");
-    print("Receivded ${password}");
+  Future<bool> createNewUser(email, password) async {
+    print("Received ${email}");
+    print("Received ${password}");
 
     try {
       final credential =
@@ -36,13 +36,17 @@ class UserAuthRepository {
         password: password,
       );
       print(credential);
+      return true;
     } on FirebaseAuthException catch (e) {
       if (e.code == 'email-already-in-use') {
         print('The account already exists for that email.');
+        return false;
       }
     } catch (e) {
       print(e);
+      return false;
     }
+    return false;
   }
 
   Future <bool> signInWithEmail(email, password) async{
@@ -97,10 +101,15 @@ class UserAuthRepository {
         .collection("users_pantry")
         .doc(uid)
         .get();
-    // Si no exite el doc, lo crea con valor default lista vacia
+    // Si no exite el doc, lo crea con valor default lista vacia    
     if (!userDoc.exists) {
       await FirebaseFirestore.instance.collection("users_pantry").doc(uid).set(
-        {"ingredients": [], "email": "", "name": "", "picture": ""},
+        {
+          "ingredients": [], 
+          "email": _auth.currentUser!.email, 
+          "name": _auth.currentUser!.displayName ?? _auth.currentUser!.displayName, 
+          "picture": _auth.currentUser!.photoURL,
+        },
       );
     } else {
       // Si ya existe el doc return
