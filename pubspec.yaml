@@ -43,6 +43,7 @@ dependencies:
   url_launcher:
   path_provider:
   flutter_dotenv:
+  flutter_shimmer:
   permission_handler:
   font_awesome_flutter:
   google_maps_flutter:
