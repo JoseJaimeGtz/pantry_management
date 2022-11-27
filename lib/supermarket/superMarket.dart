@@ -148,6 +148,10 @@ class _SuperMarketState extends State<SuperMarket> {
       zoomControlsEnabled: true,
       myLocationEnabled: true,
       myLocationButtonEnabled: false,
+      scrollGesturesEnabled: true,
+      tiltGesturesEnabled: false,
+      rotateGesturesEnabled: true,
+ 
       onMapCreated: (GoogleMapController controller) {
         googleMapController = controller;
       },
