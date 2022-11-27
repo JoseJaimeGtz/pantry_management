@@ -6,3 +6,8 @@ abstract class GetRecipeInformationEvent extends Equatable {
   @override
   List<Object> get props => [];
 }
+
+class GetRecipeInformation extends GetRecipeInformationEvent {
+  final Int id;
+  GetRecipeInformation({ required this.id });
+}
