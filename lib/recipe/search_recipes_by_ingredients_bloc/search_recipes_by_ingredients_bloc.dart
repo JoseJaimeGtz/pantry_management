@@ -16,7 +16,7 @@ class SearchRecipesByIngredientsBloc extends Bloc<SearchRecipesByIngredientsEven
     var request = HttpRequest();
 
     try {
-      final res = await request.getRecipesByIngredients(event.query);
+      final res = await request.getRecipesByIngredients(event.query); // Código de cliente
       if (res[0] != null) {
 
         // All Recipes

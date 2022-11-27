@@ -1,3 +1,4 @@
+import 'package:lottie/lottie.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pantry_management/home/menu.dart';
@@ -82,6 +83,8 @@ class Recipes extends StatelessWidget {
               child: Column(
                 children: [
                   SizedBox(height: 100),
+                  Lottie.network(
+                'https://assets3.lottiefiles.com/packages/lf20_EY6Lg2udYI.json'),
                   Text('Search recipes by ingredients',
                     style: TextStyle(
                       fontStyle: FontStyle.italic,
@@ -96,9 +99,8 @@ class Recipes extends StatelessWidget {
           return Column(
             children: [
               //shimmers
-              VideoShimmer(),
-              VideoShimmer(),
-              VideoShimmer(),
+              Lottie.network(
+                'https://raw.githubusercontent.com/xvrh/lottie-flutter/master/example/assets/Mobilo/A.json'),
             ],
           );
         } else if (state.runtimeType == SearchRecipesByIngredientsLoaded) {
@@ -141,7 +143,7 @@ class MySearchDelegate extends SearchDelegate {
       onPressed: () {
         if (query.isNotEmpty) {
         BlocProvider.of<SearchRecipesByIngredientsBloc>(context).add(
-          SearchRecipesByIngredients(query: query));
+          SearchRecipesByIngredients(query: query)); // Codigo de cliente HttpRequest
         close(context, null);
         }
       },

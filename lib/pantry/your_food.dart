@@ -22,17 +22,14 @@ class _YourFoodState extends State<YourFood> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: EasySearchBar(
+        appBar: AppBar(
           backgroundColor: Color.fromARGB(255, 122, 39, 160),
           titleTextStyle: TextStyle(
               color: Color.fromARGB(255, 255, 255, 255),
               fontSize: 20,
               fontWeight: FontWeight.w600),
           iconTheme: IconThemeData(color: Color.fromARGB(255, 255, 255, 255)),
-          searchBackIconTheme:
-              IconThemeData(color: Color.fromARGB(255, 122, 39, 160)),
           title: Text('Your Food'),
-          onSearch: (value) => setState(() => searchValue = value),
           actions: <Widget>[
             IconButton(
               icon: Icon(

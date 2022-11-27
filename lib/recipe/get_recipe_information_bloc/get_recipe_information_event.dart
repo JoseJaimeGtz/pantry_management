@@ -8,6 +8,6 @@ abstract class GetRecipeInformationEvent extends Equatable {
 }
 
 class GetRecipeInformation extends GetRecipeInformationEvent {
-  final Int id;
+  final Int id; // or can be a string
   GetRecipeInformation({ required this.id });
 }
