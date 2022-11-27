@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pantry_management/home/menu.dart';
 import 'package:flutter_shimmer/flutter_shimmer.dart';
 import 'package:pantry_management/recipe/item_recipe.dart';
+import 'package:loading_animations/loading_animations.dart';
 import 'package:pantry_management/recipe/search_recipes_by_ingredients_bloc/search_recipes_by_ingredients_bloc.dart';
 
 class Recipes extends StatelessWidget {
@@ -83,8 +84,6 @@ class Recipes extends StatelessWidget {
               child: Column(
                 children: [
                   SizedBox(height: 100),
-                  Lottie.network(
-                'https://assets3.lottiefiles.com/packages/lf20_EY6Lg2udYI.json'),
                   Text('Search recipes by ingredients',
                     style: TextStyle(
                       fontStyle: FontStyle.italic,
@@ -97,10 +96,16 @@ class Recipes extends StatelessWidget {
           );
         } else if (state.runtimeType == SearchRecipesByIngredientsLoading) {
           return Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              //shimmers
-              Lottie.network(
-                'https://raw.githubusercontent.com/xvrh/lottie-flutter/master/example/assets/Mobilo/A.json'),
+              LoadingBouncingGrid.square(
+              inverted: true,
+              borderColor: Colors.black,
+              borderSize: 1.0,
+              size: 100.0,
+              backgroundColor: Color.fromARGB(255, 122, 39, 160),
+                duration: Duration(seconds: 1),
+              ),
             ],
           );
         } else if (state.runtimeType == SearchRecipesByIngredientsLoaded) {
