@@ -361,17 +361,14 @@ class _SuperMarketState extends State<SuperMarket> {
                           ],
                         ),
                       ),
-                      IconButton(
-                        onPressed: () {},
-                        icon: Icon(
+                       Icon(
                           Icons.directions,
                           size: 50,
                           color: Colors.blueAccent,
                         ),
-                      ),
                       Padding(
-                          padding: EdgeInsets.only(top: 20),
-                          child: Text("Show directions"))
+                          padding: EdgeInsets.only(top: 5),
+                          child: Text("Showing best route"))
                     ],
                   )),
             ],
