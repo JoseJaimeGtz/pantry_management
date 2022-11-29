@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loading_animations/loading_animations.dart';
+import 'package:pantry_management/pantry/add_products/add_products_bloc.dart';
 import 'package:pantry_management/settings.dart';
 import 'package:flutter_config/flutter_config.dart';
 import 'package:pantry_management/recipe/recipes.dart';
@@ -29,6 +30,7 @@ Future<void> main() async {
         BlocProvider(create: (context) => GetRecipeInformationBloc()),
         BlocProvider(create: (context) => SearchRecipesByIngredientsBloc()),
         BlocProvider(create: (context) => AuthBloc()..add(VerifyAuthEvent())),
+        BlocProvider(create: (context) => AddProductsBloc())
       ],
       child: MyApp(),
     ),
