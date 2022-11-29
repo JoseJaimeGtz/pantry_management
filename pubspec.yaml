@@ -52,6 +52,7 @@ dependencies:
   flutter_polyline_points:
   dio:
   loading_animations:
+  quickalert:
   #Firebase
   firebase_auth: 
   firebase_core:

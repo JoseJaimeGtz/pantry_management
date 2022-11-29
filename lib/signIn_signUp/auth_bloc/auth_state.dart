@@ -20,3 +20,7 @@ class AuthErrorState extends AuthState {}
 class AuthAwaitingState extends AuthState {}
 
 class WrongPasswordState extends AuthState {}
+
+class CreateUserSuccess extends AuthState {}
+
+class CreateUserError extends AuthState {}
