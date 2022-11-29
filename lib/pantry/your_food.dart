@@ -28,7 +28,7 @@ class _YourFoodState extends State<YourFood> {
     final productQuery = FirebaseFirestore.instance.collection('users_pantry');
      final FirebaseAuth auth =  FirebaseAuth.instance;
     //final ingredientsQuery = productQuery.doc(auth.currentUser!.uid).get();
-
+    
     return BlocConsumer<AddProductsBloc, AddProductsState>(
       listener: (context, state) {},
       builder: (context, state) {
@@ -62,7 +62,6 @@ class _YourFoodState extends State<YourFood> {
                       return ingredients;
                     } 
                   });
-                  
                   return Column(
                     children: [
                       Padding(
