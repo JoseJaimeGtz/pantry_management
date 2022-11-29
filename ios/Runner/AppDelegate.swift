@@ -13,10 +13,7 @@ import GoogleMaps
     _ application: UIApplication,
     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
   ) -> Bool {
-    //print(FlutterConfigPlugin.env(for: "GOOGLE_API_KEY"))
-    //GMSServices.provideAPIKey(FlutterConfigPlugin.env(for: "GOOGLE_API_KEY"))  // Add this line!
-    GMSServices.provideAPIKey("GOOGLE_API_KEY")
-    //GMSServices.provideAPIKey(secrets.GOOGLE_API_KEY)
+    GMSServices.provideAPIKey("AIzaSyCA9D2VwtooUIwEWy8dzOiA-j2eGo7f488")
     GeneratedPluginRegistrant.register(with: self)
     return super.application(application, didFinishLaunchingWithOptions: launchOptions)
   }

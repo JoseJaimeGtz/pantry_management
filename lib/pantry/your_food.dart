@@ -22,7 +22,6 @@ class YourFood extends StatefulWidget {
 }
 
 class _YourFoodState extends State<YourFood> {
-  String searchValue = '';
 
   @override
   Widget build(BuildContext context) {

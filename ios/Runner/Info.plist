@@ -2,6 +2,11 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSAllowsLocalNetworking</key>
+		<true/>
+	</dict>
 	<key>NSLocationAlwaysUsageDescription</key>
     <string>Needed to access location always when the app is open.</string>
     <key>NSLocationWhenInUseUsageDescription</key>
@@ -50,5 +55,18 @@
 	<key>CADisableMinimumFrameDurationOnPhone</key>
 	<!-- <key>io.flutter.embedded_views_preview</key> -->
 	<true/>
+	<key>CFBundleURLTypes</key>
+<array>
+	<dict>
+		<key>CFBundleTypeRole</key>
+		<string>Editor</string>
+		<key>CFBundleURLSchemes</key>
+		<array>
+			<!-- TODO Replace this value: -->
+			<!-- Copied from GoogleService-Info.plist key REVERSED_CLIENT_ID -->
+			<string>com.googleusercontent.apps.682370034460-jdldf9nfe5mcr34sn6hp1tfqvi88b00t</string>
+		</array>
+	</dict>
+</array>
 </dict>
 </plist>
