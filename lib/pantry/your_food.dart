@@ -22,15 +22,12 @@ class YourFood extends StatefulWidget {
 }
 
 class _YourFoodState extends State<YourFood> {
-  String searchValue = '';
 
   @override
   Widget build(BuildContext context) {
-    final FirebaseAuth auth = FirebaseAuth.instance;
-    //final productQuery = FirebaseFirestore.instance.collection('users_pantry').doc(auth.currentUser!.uid).get();
     final productQuery = FirebaseFirestore.instance.collection('users_pantry');
+     final FirebaseAuth auth =  FirebaseAuth.instance;
     //final ingredientsQuery = productQuery.doc(auth.currentUser!.uid).get();
-
 
     return BlocConsumer<AddProductsBloc, AddProductsState>(
       listener: (context, state) {},
@@ -53,17 +50,24 @@ class _YourFoodState extends State<YourFood> {
                 )
               ],
             ),
-            body: FirestoreListView<Map<String, dynamic>>(
+            body: FirestoreListView<Map<String, dynamic>> (
                 query: productQuery,
-                itemBuilder: (context, snapshot) {
-                  dynamic ingredients = snapshot['ingredients'];
-                  print(ingredients);
-                  //Text("${ingredients}");
+                itemBuilder: (context, snapshot) { 
+                  bool emptyList = false;
+                  dynamic ingredients = "";
+                  snapshot.data().forEach((key, value) {
+                    if(value == auth.currentUser!.email){
+                      ingredients = snapshot["ingredients"];
+                      emptyList = true;
+                      return ingredients;
+                    } 
+                  });
+                  
                   return Column(
                     children: [
                       Padding(
                         padding: EdgeInsets.only(top: 40, bottom: 25),
-                        child: Row(
+                        child: emptyList ?  Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text("Expires soon",
@@ -74,9 +78,9 @@ class _YourFoodState extends State<YourFood> {
                             SizedBox(width: 20),
                             Icon(FontAwesomeIcons.calendarXmark)
                           ],
-                        ),
+                        ) : Text(""),
                       ),
-                      ListHeader(),
+                      emptyList ? ListHeader() : Text(""),
                       for (var i = 0; i < ingredients.length; i++)
                         ItemList(
                             product_name: ingredients[i]["product_name"],
