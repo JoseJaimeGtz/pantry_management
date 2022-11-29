@@ -53,6 +53,9 @@ class AddProductsBloc extends Bloc<AddProductsEvent, AddProductsState> {
   }
 
   FutureOr<void> _showUsersProducts(event, emit) async{
-
+    // regresar los ingredientes 
   }
+  // eliminar los productos
+
+  // actualizar un producto en específico
 }

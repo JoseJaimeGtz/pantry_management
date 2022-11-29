@@ -80,13 +80,22 @@ class Recipes extends StatelessWidget {
       builder: (context, state) {
         if (state.runtimeType == SearchRecipesByIngredientsInitial) {
           return Container(
-            height: MediaQuery.of(context).size.height - 173,
+            height: MediaQuery.of(context).size.height - 200,
             child: Center(
-              child: Text('Search recipes by ingredients',
-                style: TextStyle(
-                  fontStyle: FontStyle.italic,
-                  fontWeight: FontWeight.w700,
-                ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Image.asset('assets/grocery.png',height: 90),
+                  ),
+                  Text('Search recipes by ingredients',
+                    style: TextStyle(
+                      fontStyle: FontStyle.italic,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                ]
               )
             ),
           );
