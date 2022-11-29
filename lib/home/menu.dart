@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pantry_management/signIn_signUp/auth_bloc/auth_bloc.dart';
+import 'package:pantry_management/signIn_signUp/user_auth_repository.dart';
 import 'package:pantry_management/supermarket/superMarket.dart';
 
 Widget userMenu(BuildContext context) {
@@ -33,15 +34,18 @@ Widget userMenu(BuildContext context) {
                   ),
                   CircleAvatar(
                     backgroundColor: Colors.amber,
-                    backgroundImage: NetworkImage(
-                      'https://cdn2.psychologytoday.com/assets/styles/manual_crop_1_91_1_1528x800/public/field_blog_entry_images/2018-09/shutterstock_648907024.jpg?itok=7lrLYx-B'
+                    backgroundImage: NetworkImage(UserAuthRepository().getCurrentUser()?.photoURL
+                      ?? 'https://www.pngitem.com/pimgs/m/146-1468479_my-profile-icon-blank-profile-picture-circle-hd.png',
                     ),
                     radius: 50.0
                   ),
-                  Text('Johana Doe',
-                    style: TextStyle(fontWeight: FontWeight.bold)
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(UserAuthRepository().getCurrentUser()?.displayName ?? UserAuthRepository().getCurrentUser()?.email ?? 'User',
+                      style: TextStyle(fontWeight: FontWeight.bold)
+                    ),
                   ),
-                  Text('johana@company.com',
+                  Text(UserAuthRepository().getCurrentUser()?.email ?? 'Email',
                     style: TextStyle(fontWeight: FontWeight.w300)
                   ),
                 ],
@@ -75,7 +79,7 @@ Widget userMenu(BuildContext context) {
             title: const Text('Log Out'),
             trailing: Icon(Icons.keyboard_arrow_right_sharp),
             onTap: () {
-               BlocProvider.of<AuthBloc>(context).add(SignOutEvent());
+              BlocProvider.of<AuthBloc>(context).add(SignOutEvent());
             }
           ),
           SizedBox(height:250),

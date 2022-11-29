@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pantry_management/home/menu.dart';
+import 'package:quickalert/models/quickalert_type.dart';
+import 'package:quickalert/widgets/quickalert_dialog.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pantry_management/signIn_signUp/auth_bloc/auth_bloc.dart';
+import 'package:pantry_management/signIn_signUp/user_auth_repository.dart';
 
 class Settings extends StatefulWidget {
   const Settings({super.key});
@@ -32,7 +35,8 @@ class _SettingsState extends State<Settings> {
                     padding: EdgeInsets.only(left: 20, top: 40, right: 20, bottom: 5),
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(50.0),
-                      child: Image.network('https://cdn2.psychologytoday.com/assets/styles/manual_crop_1_91_1_1528x800/public/field_blog_entry_images/2018-09/shutterstock_648907024.jpg?itok=7lrLYx-B')),
+                      child: Image.network(UserAuthRepository().getCurrentUser()?.photoURL
+                      ?? 'https://www.pngitem.com/pimgs/m/146-1468479_my-profile-icon-blank-profile-picture-circle-hd.png')),
                   ),
                   SizedBox(height: 10,),
                   Row(
@@ -46,8 +50,9 @@ class _SettingsState extends State<Settings> {
                             child: TextField(
                               controller: _nameController,
                               decoration: InputDecoration(
+                                enabled: false,
                                 border: InputBorder.none,
-                                hintText: 'Johana Doe'
+                                hintText: UserAuthRepository().getCurrentUser()?.displayName ?? UserAuthRepository().getCurrentUser()?.email ?? 'User'
                               ),
                             ),
                           ),
@@ -59,7 +64,7 @@ class _SettingsState extends State<Settings> {
                               decoration: InputDecoration(
                                 enabled: false, // si queremos cambiar el correo, quitar esto
                                 border: InputBorder.none,
-                                hintText: 'johana@company.com'
+                                hintText: UserAuthRepository().getCurrentUser()?.email ?? 'Email'
                               ),
                             ),
                           ),
@@ -67,7 +72,14 @@ class _SettingsState extends State<Settings> {
                       ),
                       SizedBox(width: 10,),
                       IconButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          QuickAlert.show(
+                            context: context,
+                            type: QuickAlertType.success,
+                            title: 'Secure',
+                            text: 'Your Account is Secure!',
+                          );
+                        },
                         icon: Icon(FontAwesomeIcons.lock))
                     ],
                   ),
@@ -77,25 +89,25 @@ class _SettingsState extends State<Settings> {
             Container(
               padding: EdgeInsets.all(50),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  Container(
-                    child: ElevatedButton(
-                      onPressed: () {},
-                      child: Text('Save',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 16
-                        )
-                      ),
-                      style: ElevatedButton.styleFrom(
-                        primary: Color.fromARGB(255, 3, 95, 200),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(6),
-                        ),
-                      ),
-                    ),
-                  ),
+                  // Container(
+                  //   child: ElevatedButton(
+                  //     onPressed: () {},
+                  //     child: Text('Save',
+                  //       style: TextStyle(
+                  //         fontWeight: FontWeight.bold,
+                  //         fontSize: 16
+                  //       )
+                  //     ),
+                  //     style: ElevatedButton.styleFrom(
+                  //       primary: Color.fromARGB(255, 3, 95, 200),
+                  //       shape: RoundedRectangleBorder(
+                  //         borderRadius: BorderRadius.circular(6),
+                  //       ),
+                  //     ),
+                  //   ),
+                  // ),
                   Container(
                     child: ElevatedButton(
                       onPressed: () {

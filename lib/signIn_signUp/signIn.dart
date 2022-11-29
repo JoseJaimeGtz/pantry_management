@@ -28,8 +28,9 @@ class _SignInState extends State<SignIn> {
               Column(
                 children: [
                   SizedBox(height: 50),
-                  Icon(FontAwesomeIcons.cloud,
-                      size: 70, color: Color.fromARGB(255, 112, 49, 155)),
+                  // Icon(FontAwesomeIcons.cloud,
+                  //     size: 70, color: Color.fromARGB(255, 112, 49, 155)),
+                  Image.asset('assets/grocery.png',height: 70),
                   SizedBox(height: 8),
                   Text(
                     'Save your food',
@@ -191,13 +192,15 @@ class _SignInState extends State<SignIn> {
                                 .add(GoogleAuthEvent(context: context));
                           },
                           label: Text('Google',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 16)),
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 16
+                            )
+                          ),
                           icon: Icon(FontAwesomeIcons.google, size: 20),
                           style: ElevatedButton.styleFrom(
                             padding: EdgeInsets.symmetric(vertical: 15),
-                            primary: Color.fromARGB(255, 64, 90, 147),
+                            primary: Color.fromARGB(255, 54, 54, 54),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(6),
                             ),

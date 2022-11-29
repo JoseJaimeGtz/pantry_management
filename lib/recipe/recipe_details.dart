@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:loading_animations/loading_animations.dart';
 import 'package:pantry_management/home/menu.dart';
+import 'package:loading_animations/loading_animations.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pantry_management/recipe/get_recipe_information_bloc/get_recipe_information_bloc.dart';
 
@@ -42,10 +42,10 @@ class RecipeDetails extends StatelessWidget {
             )
           );
         } else if (state.runtimeType == GetRecipeInformationLoading) {
-          return Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              LoadingBouncingGrid.square(
+          return Container(
+            height: MediaQuery.of(context).size.height - 173,
+            child: Center(
+              child: LoadingBouncingGrid.square(
               inverted: true,
               borderColor: Colors.black,
               borderSize: 1.0,
@@ -53,12 +53,10 @@ class RecipeDetails extends StatelessWidget {
               backgroundColor: Color.fromARGB(255, 122, 39, 160),
                 duration: Duration(seconds: 1),
               ),
-            ],
+            ),
           );
         } else if (state.runtimeType == GetRecipeInformationLoaded) {
           final recipe = (state as GetRecipeInformationLoaded).informationLoaded;
-          print('RECIPE DETAILS');
-          print(recipe);
           return _recipeInfo(context, recipe);
         } else {
           final error = (state as GetRecipeInformationError).error;
@@ -144,7 +142,7 @@ class RecipeDetails extends StatelessWidget {
           ),
         ),
         Container(
-          padding: EdgeInsets.only(left: 0, right: 15),
+          padding: EdgeInsets.only(left: 15, right: 15),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,

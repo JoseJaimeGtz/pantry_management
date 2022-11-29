@@ -25,6 +25,10 @@ class UserAuthRepository {
     await _googleSignIn.signOut();
   }
 
+  User? getCurrentUser() {
+    return _auth.currentUser;
+  }
+
   Future<bool> createNewUser(email, password) async {
     print("Received ${email}");
     print("Received ${password}");
