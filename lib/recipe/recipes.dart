@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pantry_management/home/menu.dart';
-import 'package:flutter_shimmer/flutter_shimmer.dart';
 import 'package:pantry_management/recipe/item_recipe.dart';
+import 'package:loading_animations/loading_animations.dart';
+import 'package:pantry_management/recipe/get_recipe_information_bloc/get_recipe_information_bloc.dart';
 import 'package:pantry_management/recipe/search_recipes_by_ingredients_bloc/search_recipes_by_ingredients_bloc.dart';
 
 class Recipes extends StatelessWidget {
@@ -61,12 +62,14 @@ class Recipes extends StatelessWidget {
         var _itemRecipe = recipes[index];
         print(_itemRecipe);
         return GestureDetector(
-          onTap: () => Navigator.pushNamed(
-            context,
-            '/recipeDetails',
-            arguments: recipes[index]['id']
-          ), // del index on recipes[index]['id']
-          child: ItemRecipe(recipe: _itemRecipe)
+          onTap: () {
+            Navigator.pushNamed(
+              context,
+              '/recipeDetails',
+              arguments: recipes[index]['id']
+            ); // del index on recipes[index]['id']
+          },
+          child: ItemRecipe(recipe: _itemRecipe, id: recipes[index]['id'])
           );
       },
     );
@@ -94,11 +97,16 @@ class Recipes extends StatelessWidget {
           );
         } else if (state.runtimeType == SearchRecipesByIngredientsLoading) {
           return Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              //shimmers
-              VideoShimmer(),
-              VideoShimmer(),
-              VideoShimmer(),
+              LoadingBouncingGrid.square(
+              inverted: true,
+              borderColor: Colors.black,
+              borderSize: 1.0,
+              size: 100.0,
+              backgroundColor: Color.fromARGB(255, 122, 39, 160),
+                duration: Duration(seconds: 1),
+              ),
             ],
           );
         } else if (state.runtimeType == SearchRecipesByIngredientsLoaded) {
@@ -141,7 +149,7 @@ class MySearchDelegate extends SearchDelegate {
       onPressed: () {
         if (query.isNotEmpty) {
         BlocProvider.of<SearchRecipesByIngredientsBloc>(context).add(
-          SearchRecipesByIngredients(query: query));
+          SearchRecipesByIngredients(query: query)); // Codigo de cliente HttpRequest
         close(context, null);
         }
       },

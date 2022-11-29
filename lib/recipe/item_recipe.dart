@@ -1,10 +1,13 @@
 import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pantry_management/recipe/get_recipe_information_bloc/get_recipe_information_bloc.dart';
 
 class ItemRecipe extends StatelessWidget {
   final dynamic recipe;
+  final dynamic id;
 
-  ItemRecipe({super.key, required this.recipe});
+  ItemRecipe({super.key, required this.recipe, required this.id});
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +25,11 @@ class ItemRecipe extends StatelessWidget {
                   '${recipe["image"]}',
                   fit: BoxFit.fill),
                 onTap: (){   //dar click en la imagen para ver detalles de la receta
-                Navigator.pushNamed(context, '/recipeDetails'); // Dummy
+                  Navigator.pushNamed(context, '/recipeDetails');
+                  BlocProvider.of<GetRecipeInformationBloc>(context).add(
+                    GetRecipeInformation(id: id));
+                  print('id');
+                  print(id);
                 },
               ),
             ),
@@ -59,10 +66,4 @@ class ItemRecipe extends StatelessWidget {
       ),
     );
   }
-
-/* Future<void> _launchUrl(String url) async {
-    if (!await launchUrl(Uri.parse(url))) {
-      throw 'Could not launch $url';
-    }
-  }*/
 }

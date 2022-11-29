@@ -11,12 +11,10 @@ import 'package:pantry_management/signIn_signUp/signIn.dart';
 import 'package:pantry_management/signIn_signUp/signUp.dart';
 import 'package:pantry_management/recipe/recipe_details.dart';
 import 'package:pantry_management/supermarket/superMarket.dart';
-// import 'package:pantry_management/recipe/bloc/recipes_bloc.dart';
 import 'package:pantry_management/recipe/get_recipe_information_bloc/get_recipe_information_bloc.dart';
 import 'package:pantry_management/recipe/search_recipes_by_ingredients_bloc/search_recipes_by_ingredients_bloc.dart';
 import 'package:quickalert/models/quickalert_type.dart';
 import 'package:quickalert/widgets/quickalert_dialog.dart';
-
 import 'home/home_page.dart';
 import 'signIn_signUp/auth_bloc/auth_bloc.dart';
 
@@ -24,7 +22,7 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized(); // Required by FlutterConfig
   await Firebase.initializeApp();
   await FlutterConfig.loadEnvVariables();
-  runApp(
+  runApp(  
     MultiBlocProvider(
       providers: [
         BlocProvider(create: (context) => GetRecipeInformationBloc()),

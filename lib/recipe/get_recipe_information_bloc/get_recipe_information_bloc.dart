@@ -16,86 +16,85 @@ class GetRecipeInformationBloc extends Bloc<GetRecipeInformationEvent, GetRecipe
 
     var request = HttpRequest();
 
+    print('Haciendo request');
+
     try {
       final res = await request.getRecipeInformation(event.id);
-      if (res[0] != null) {
-
+      if (res.length != 0) {
         // Recipe Information
         var recipeDetails = [];
-        for (var recipe in res) {
 
-          // Recipe id
-          var id;
-          try {
-            id = recipe['id'];
-          } catch (e) {
-            id = 0; // null
-          }
-
-          // Recipe title
-          var title;
-          try {
-            title = recipe['title'];
-          } catch (e) {
-            title = '-'; // null
-          }
-
-          // Recipe image
-          var image;
-          try {
-            image = recipe['image'];
-          } catch (e) {
-            image = ''; // img not found
-          }
-
-          // servings
-          var servings;
-          try {
-            servings = recipe['servings'];
-          } catch (e) {
-            servings = null;
-          }
-
-          // instructions
-          var instructions;
-          try {
-            instructions = recipe['instructions'];
-          } catch (e) {
-            instructions = '-'; // instructions not found
-          }
-
-          // ready In Minutes
-          var readyInMinutes;
-          try {
-            readyInMinutes = recipe['readyInMinutes'];
-          } catch (e) {
-            readyInMinutes = null; // readyInMinutes not found
-          }
-
-          // Recipe Extended Ingredients
-          var extendedIngredients;
-          try {
-            extendedIngredients = recipe['extendedIngredients'];
-          } catch (e) {
-            extendedIngredients = []; // extendedIngredients not found
-          }
-
-          recipeDetails.add(
-            {
-              'id': id,
-              'title': title,
-              'image': image,
-              'servings': servings,
-              'instructions': instructions,
-              'readyInMinutes': readyInMinutes,
-              'extendedIngredients': extendedIngredients
-            }
-          );
+        // Recipe id
+        var id;
+        try {
+          id = res['id'];
+        } catch (e) {
+          id = 0; // null
         }
-        print(res);
+
+        // Recipe title
+        var title;
+        try {
+          title = res['title'];
+        } catch (e) {
+          title = 'No Title Available'; // null
+        }
+
+        // Recipe image
+        var image;
+        try {
+          image = res['image'];
+        } catch (e) {
+          image = 'https://upload.wikimedia.org/wikipedia/commons/d/d1/Image_not_available.png'; // img not found
+        }
+
+        // servings
+        var servings;
+        try {
+          servings = res['servings'];
+        } catch (e) {
+          servings = 0;
+        }
+
+        // instructions
+        var instructions;
+        try {
+          instructions = res['instructions'];
+        } catch (e) {
+          instructions = 'No Instructions Available'; // instructions not found
+        }
+
+        // ready In Minutes
+        var readyInMinutes;
+        try {
+          readyInMinutes = res['readyInMinutes'];
+        } catch (e) {
+          readyInMinutes = 0; // readyInMinutes not found
+        }
+
+        // Recipe Extended Ingredients
+        var extendedIngredients;
+        try {
+          extendedIngredients = res['extendedIngredients'];
+        } catch (e) {
+          extendedIngredients = []; // extendedIngredients not found
+        }
+
+        recipeDetails.add(
+          {
+            'id': id,
+            'title': title,
+            'image': image,
+            'servings': servings,
+            'instructions': instructions,
+            'readyInMinutes': readyInMinutes,
+            'extendedIngredients': extendedIngredients
+          }
+        );
         emit(GetRecipeInformationLoaded(informationLoaded: recipeDetails));
       } else {
         emit(GetRecipeInformationError(error: 'No Information Found'));
+        return;
       }
     } catch (e) {
       emit(GetRecipeInformationError(error: 'Something Was Wrong! $e'));
