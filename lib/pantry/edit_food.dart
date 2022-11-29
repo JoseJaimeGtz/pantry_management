@@ -1,29 +1,39 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:pantry_management/pantry/add_products/add_products_bloc.dart';
+import 'package:intl/intl.dart';
 
 
-class AlertFood extends StatefulWidget {
-  AlertFood({
-    Key? key,
-  }) : super(key: key);
+class EditFood extends StatefulWidget {
+
+  final String product_name;
+  final int quantity;
+  final Timestamp expiration_date;
+  final int id;
+
+  EditFood(
+      {
+      Key ? key,
+      required this.product_name,
+      required this.quantity,
+      required this.expiration_date,
+      required this.id});
 
   @override
-  State<AlertFood> createState() => _AlertFoodState();
+  State<EditFood> createState() => _EditFoodState();
 }
 
-class _AlertFoodState extends State<AlertFood> {
-
-final _productController = TextEditingController();
-final _quantityController = TextEditingController();
-DateTime date = DateTime(2016, 10, 26);
-
+class _EditFoodState extends State<EditFood> {
   @override
   Widget build(BuildContext context) {
+  final _productController = TextEditingController(text: "${widget.product_name}");
+  final _quantityController = TextEditingController(text: "${widget.quantity}");
+
     return AlertDialog(
-            title: const Text('Add product'),
+            title: const Text('Edit/Remove Product'),
             content: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
@@ -39,7 +49,7 @@ DateTime date = DateTime(2016, 10, 26);
                           color: Color.fromARGB(
                               255, 122, 39, 160)),
                     ),
-                    hintText: "Product Name",
+                    hintText: "${widget.product_name}",
                   ),
                 ),
                 TextFormField(
@@ -54,7 +64,7 @@ DateTime date = DateTime(2016, 10, 26);
                           color: Color.fromARGB(
                               255, 122, 39, 160)),
                     ),
-                    hintText: "Quantity",
+                    hintText: "${widget.quantity}",
                   ),
                 ),
                 //DatePickerExample()
@@ -62,6 +72,26 @@ DateTime date = DateTime(2016, 10, 26);
               ],
             ),
             actions: <Widget>[
+              Padding(
+                padding: const EdgeInsets.only(right:50.0, bottom:5),
+                child: IconButton(
+                  onPressed: (){
+                     dynamic deletedIngredient = {
+                  "expiration_date": widget.expiration_date,
+                  "product_name": _productController.text,
+                  "quantity":int.parse(_quantityController.text)
+                 };
+
+                 print(deletedIngredient);
+
+                 BlocProvider.of<AddProductsBloc>(context).add(
+                    DeleteProductEvent(deletedIngredient : deletedIngredient, id: widget.id));
+
+                    Navigator.pop(context);
+                  }, 
+                  icon: Icon(Icons.delete, color:Color.fromARGB(255, 122, 39, 160), size:30)
+                ),
+              ),
               TextButton(
                 onPressed: () {
                   Navigator.pop(context, 'Cancel');
@@ -74,16 +104,30 @@ DateTime date = DateTime(2016, 10, 26);
               TextButton(
                 onPressed: () {
                   print("Product Name: ${_productController.text}");
-                  print("Quantity: ${_quantityController.text}");
-                  print("Expiration Date: ${date}");
-                  BlocProvider.of<AddProductsBloc>(context).add(
-                    AddToListEvent(
-                      product_name: _productController.text,
-                      quantity: int.parse(_quantityController.text),
-                      expiration_date: date));
+                  print("Quantity: ${int.parse(_quantityController.text)}");
+                  print("Expiration Date: ${widget.expiration_date}");
+
+                 //TODO: Actualizar valores
+                 dynamic updatedIngredient = {
+                  "expiration_date": widget.expiration_date,
+                  "product_name": _productController.text,
+                  "quantity":int.parse(_quantityController.text)
+                 };
+
+                 dynamic deletedIngredient = {
+                  "expiration_date": widget.expiration_date,
+                  "product_name": widget.product_name,
+                  "quantity": widget.quantity
+                 };
+
+                 print(updatedIngredient);
+
+                 BlocProvider.of<AddProductsBloc>(context).add(
+                    UpdateProductEvent(updatedIngredient : updatedIngredient, id: widget.id, deletedIngredient:deletedIngredient));
+                    
                   Navigator.pop(context, 'OK');
                 },
-                child: const Text('Continue',
+                child: const Text('Update',
                     style: TextStyle(
                         color:
                             Color.fromARGB(255, 122, 39, 160))),
@@ -114,6 +158,11 @@ DateTime date = DateTime(2016, 10, 26);
   }
 
   Widget buildDate(BuildContext context) {
+    DateTime new_date = DateTime.parse(widget.expiration_date.toDate().toString());
+    DateTime updated_date = DateTime(2016, 10, 26);
+    DateTime date = new_date;
+    String formattedDate = DateFormat('dd-MM-yyyy').format(date);
+
     return Row(
         children: [
           DefaultTextStyle(
@@ -148,7 +197,8 @@ DateTime date = DateTime(2016, 10, 26);
                             ),
                           ),
                           child: Text(
-                            '${date.month}-${date.day}-${date.year}',
+                            //'${date.month}-${date.day}-${date.year}'
+                            '${formattedDate}',
                             style: const TextStyle(
                               fontSize: 16.0,
                             ),
