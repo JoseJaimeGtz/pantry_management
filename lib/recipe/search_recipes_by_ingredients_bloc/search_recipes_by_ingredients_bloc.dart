@@ -36,7 +36,7 @@ class SearchRecipesByIngredientsBloc extends Bloc<SearchRecipesByIngredientsEven
           try {
             title = recipe['title'];
           } catch (e) {
-            title = '-'; // null
+            title = 'No Title Available'; // null
           }
 
           // Recipe image
@@ -44,7 +44,7 @@ class SearchRecipesByIngredientsBloc extends Bloc<SearchRecipesByIngredientsEven
           try {
             image = recipe['image'];
           } catch (e) {
-            image = ''; // img not found
+            image = 'https://upload.wikimedia.org/wikipedia/commons/d/d1/Image_not_available.png'; // img not found
           }
 
           recipes.add(

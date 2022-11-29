@@ -1,10 +1,9 @@
-import 'package:lottie/lottie.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pantry_management/home/menu.dart';
-import 'package:flutter_shimmer/flutter_shimmer.dart';
 import 'package:pantry_management/recipe/item_recipe.dart';
 import 'package:loading_animations/loading_animations.dart';
+import 'package:pantry_management/recipe/get_recipe_information_bloc/get_recipe_information_bloc.dart';
 import 'package:pantry_management/recipe/search_recipes_by_ingredients_bloc/search_recipes_by_ingredients_bloc.dart';
 
 class Recipes extends StatelessWidget {
@@ -63,12 +62,14 @@ class Recipes extends StatelessWidget {
         var _itemRecipe = recipes[index];
         print(_itemRecipe);
         return GestureDetector(
-          onTap: () => Navigator.pushNamed(
-            context,
-            '/recipeDetails',
-            arguments: recipes[index]['id']
-          ), // del index on recipes[index]['id']
-          child: ItemRecipe(recipe: _itemRecipe)
+          onTap: () {
+            Navigator.pushNamed(
+              context,
+              '/recipeDetails',
+              arguments: recipes[index]['id']
+            ); // del index on recipes[index]['id']
+          },
+          child: ItemRecipe(recipe: _itemRecipe, id: recipes[index]['id'])
           );
       },
     );
