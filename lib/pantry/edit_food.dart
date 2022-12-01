@@ -27,10 +27,22 @@ class EditFood extends StatefulWidget {
 }
 
 class _EditFoodState extends State<EditFood> {
+  static Timestamp get expiration_date => expiration_date;
+  //DateTime _new_date = DateTime.parse(expiration_date.toDate().toString());
+  DateTime _new_date = DateTime(2016, 10,1);
+  
+
+  set new_date(DateTime value) {
+    _new_date = value;
+    print(expiration_date);
+  }
+  DateTime get new_date => _new_date;
+
   @override
   Widget build(BuildContext context) {
   final _productController = TextEditingController(text: "${widget.product_name}");
   final _quantityController = TextEditingController(text: "${widget.quantity}");
+  //DateTime new_date = DateTime.parse(widget.expiration_date.toDate().toString());
 
     return AlertDialog(
             title: const Text('Edit/Remove Product'),
@@ -82,7 +94,7 @@ class _EditFoodState extends State<EditFood> {
                   "quantity":int.parse(_quantityController.text)
                  };
 
-                 print(deletedIngredient);
+                 //print(deletedIngredient);
 
                  BlocProvider.of<AddProductsBloc>(context).add(
                     DeleteProductEvent(deletedIngredient : deletedIngredient, id: widget.id));
@@ -103,13 +115,14 @@ class _EditFoodState extends State<EditFood> {
               ),
               TextButton(
                 onPressed: () {
-                  print("Product Name: ${_productController.text}");
-                  print("Quantity: ${int.parse(_quantityController.text)}");
-                  print("Expiration Date: ${widget.expiration_date}");
+                  //print("Product Name: ${_productController.text}");
+                  //print("Quantity: ${int.parse(_quantityController.text)}");
+                  //print("Expiration Date: ${widget.expiration_date}");
+                  print("New Expiration Date: ${new_date}");
 
                  //TODO: Actualizar valores
                  dynamic updatedIngredient = {
-                  "expiration_date": widget.expiration_date,
+                  "expiration_date": new_date,
                   "product_name": _productController.text,
                   "quantity":int.parse(_quantityController.text)
                  };
@@ -120,7 +133,7 @@ class _EditFoodState extends State<EditFood> {
                   "quantity": widget.quantity
                  };
 
-                 print(updatedIngredient);
+                 //print(updatedIngredient);
 
                  BlocProvider.of<AddProductsBloc>(context).add(
                     UpdateProductEvent(updatedIngredient : updatedIngredient, id: widget.id, deletedIngredient:deletedIngredient));
@@ -158,10 +171,10 @@ class _EditFoodState extends State<EditFood> {
   }
 
   Widget buildDate(BuildContext context) {
-    DateTime new_date = DateTime.parse(widget.expiration_date.toDate().toString());
-    DateTime updated_date = DateTime(2016, 10, 26);
-    DateTime date = new_date;
-    String formattedDate = DateFormat('dd-MM-yyyy').format(date);
+    //DateTime new_date = DateTime.parse(widget.expiration_date.toDate().toString());
+    //DateTime updated_date = DateTime(2016, 10, 26);
+    //DateTime date = new_date;
+    //String formattedDate = DateFormat('dd-MM-yyyy').format(date);
 
     return Row(
         children: [
@@ -187,18 +200,19 @@ class _EditFoodState extends State<EditFood> {
                           // Display a CupertinoDatePicker in date picker mode.
                           onPressed: () => _showDialog(
                             CupertinoDatePicker(
-                              initialDateTime: date,
+                              initialDateTime: new_date,
                               mode: CupertinoDatePickerMode.date,
                               use24hFormat: true,
                               // This is called when the user changes the date.
                               onDateTimeChanged: (DateTime newDate) {
-                                setState(() => date = newDate);
+                                setState(() => new_date = newDate);
+                                print("New date ${new_date}");
                               },
                             ),
                           ),
                           child: Text(
-                            //'${date.month}-${date.day}-${date.year}'
-                            '${formattedDate}',
+                            '${new_date.month}-${new_date.day}-${new_date.year}',
+                            //'${formattedDate}',
                             style: const TextStyle(
                               fontSize: 16.0,
                             ),
