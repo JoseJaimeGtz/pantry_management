@@ -15,4 +15,18 @@ class AddToListEvent extends AddProductsEvent {
   AddToListEvent({required this.product_name, required this.quantity, required this.expiration_date});  
 }
 
-class ShowProductsEvent extends AddProductsEvent {}
+class UpdateProductEvent extends AddProductsEvent {
+  final dynamic updatedIngredient;
+  final dynamic deletedIngredient;
+  final int id;
+
+  UpdateProductEvent({required this.updatedIngredient, required this.id, required this.deletedIngredient});
+
+}
+
+class DeleteProductEvent extends AddProductsEvent {
+  final dynamic deletedIngredient;
+  final int id;
+
+  DeleteProductEvent({required this.deletedIngredient, required this.id});
+}
