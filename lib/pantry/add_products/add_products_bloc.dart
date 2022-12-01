@@ -11,7 +11,8 @@ part 'add_products_state.dart';
 class AddProductsBloc extends Bloc<AddProductsEvent, AddProductsState> {
   AddProductsBloc() : super(AddProductsInitial()) {
     on<AddToListEvent>(_addProductToList);
-    on<ShowProductsEvent>(_showUsersProducts);
+    on<UpdateProductEvent>(_updateProduct);
+    on<DeleteProductEvent>(_deleteProduct);
   }
 
   final FirebaseAuth auth = FirebaseAuth.instance;
@@ -52,8 +53,45 @@ class AddProductsBloc extends Bloc<AddProductsEvent, AddProductsState> {
     }
   }
 
-  FutureOr<void> _showUsersProducts(event, emit) async{
-    // regresar los ingredientes 
+  FutureOr<void> _updateProduct(event, emit) async {
+    emit(LoadingState());
+    String uid = userData();
+    print("Updating product to user: ${uid}");
+    final response = await responseFromDatabase(uid);
+    print("Users ingredients");
+    print(response["ingredients"]);
+    print("Received ${event.updatedIngredient}");
+
+    try{
+        //Borrar
+       await db.collection('users_pantry').doc(uid).update({'ingredients': FieldValue.arrayRemove([event.deletedIngredient])});  
+       await db.collection('users_pantry').doc(uid).update({'ingredients': FieldValue.arrayUnion([event.updatedIngredient])});       
+       emit(UpdateProductSuccess());
+
+    }catch(e){
+      print(e);
+      emit(UpdateProductError());
+    }
+  }
+
+  FutureOr<void> _deleteProduct(event, emit) async {
+    emit(LoadingState());
+    String uid = userData();
+    print("Updating product to user: ${uid}");
+    final response = await responseFromDatabase(uid);
+    print("Users ingredients");
+    print(response["ingredients"]);
+    print("Received ${event.deletedIngredient}");
+
+    try{
+        //Borrar
+       await db.collection('users_pantry').doc(uid).update({'ingredients': FieldValue.arrayRemove([event.deletedIngredient])});       
+       emit(DeleteProductSuccess());
+
+    }catch(e){
+      print(e);
+      emit(DeleteProductError());
+    }
   }
   // eliminar los productos
 

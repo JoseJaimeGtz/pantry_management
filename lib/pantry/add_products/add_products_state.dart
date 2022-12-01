@@ -14,3 +14,11 @@ class LoadingState extends AddProductsState {}
 class AddProductSuccess extends AddProductsState {}
 
 class AddProductError extends AddProductsState {}
+
+class UpdateProductSuccess extends AddProductsState {}
+
+class UpdateProductError extends AddProductsState {}
+
+class DeleteProductSuccess extends AddProductsState {}
+
+class DeleteProductError extends AddProductsState {}
