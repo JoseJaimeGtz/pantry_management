@@ -88,6 +88,9 @@ flutter:
   assets:
     - assets/home.png
     - assets/grocery.png
+    - assets/grocery_1.png
+    - assets/grocery_2.png
+    - assets/grocery_3.png
     - assets/Image_not_available.png
     - .env
   #   - images/a_dot_ham.jpeg

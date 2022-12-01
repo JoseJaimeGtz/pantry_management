@@ -93,4 +93,7 @@ class AddProductsBloc extends Bloc<AddProductsEvent, AddProductsState> {
       emit(DeleteProductError());
     }
   }
+  // eliminar los productos
+
+  // actualizar un producto en específico
 }
