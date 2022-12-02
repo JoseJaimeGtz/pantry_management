@@ -27,7 +27,7 @@ class _SuperMarketState extends State<SuperMarket> {
 
   //Cambiar a que el mapa muestre la ubicación del usuario al mostrarse
   static const CameraPosition initialPosition =
-      CameraPosition(target: LatLng(20.605765, -103.476892), zoom: 14.0);
+      CameraPosition(target: LatLng(20.6081007558984, -103.41751686167628), zoom: 14.0);
 
   Set<Marker> markers = {};
 
