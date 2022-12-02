@@ -114,6 +114,12 @@ class _SettingsState extends State<Settings> {
                         print("Signing out");
                         Navigator.of(context).pop();
                         BlocProvider.of<AuthBloc>(context).add(SignOutEvent());
+                        QuickAlert.show(
+                          context: context,
+                          type: QuickAlertType.info,
+                          title: 'Info',
+                          text: 'Signing Out',
+                        );
                       },
                       child: Text('Log out',
                         style: TextStyle(

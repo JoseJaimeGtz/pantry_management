@@ -29,18 +29,20 @@ class Recipes extends StatelessWidget {
           )
         ],
       ),
-      body: Column(
-        children: [
-          SafeArea(
-            top: false,
-            bottom: false,
-            child: Stack(
-              children: [
-                _searchRecipesByIngredients(),
-              ],
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            SafeArea(
+              top: false,
+              bottom: false,
+              child: Stack(
+                children: [
+                  _searchRecipesByIngredients(),
+                ],
+              )
             )
-          )
-        ],
+          ],
+        ),
       ),
     );
   }

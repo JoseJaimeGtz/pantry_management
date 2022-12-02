@@ -4,6 +4,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pantry_management/signIn_signUp/auth_bloc/auth_bloc.dart';
 import 'package:pantry_management/signIn_signUp/user_auth_repository.dart';
 import 'package:pantry_management/supermarket/superMarket.dart';
+import 'package:quickalert/models/quickalert_type.dart';
+import 'package:quickalert/widgets/quickalert_dialog.dart';
 
 Widget userMenu(BuildContext context) {
     return Drawer(
@@ -80,6 +82,12 @@ Widget userMenu(BuildContext context) {
             trailing: Icon(Icons.keyboard_arrow_right_sharp),
             onTap: () {
               BlocProvider.of<AuthBloc>(context).add(SignOutEvent());
+              QuickAlert.show(
+                context: context,
+                type: QuickAlertType.info,
+                title: 'Info',
+                text: 'Signing Out',
+              );
             }
           ),
           SizedBox(height:250),

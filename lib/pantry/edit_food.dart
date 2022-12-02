@@ -83,35 +83,40 @@ class _EditFoodState extends State<EditFood> {
               ],
             ),
             actions: <Widget>[
-              Padding(
-                padding: const EdgeInsets.only(right:50.0, bottom:5),
-                child: IconButton(
-                  onPressed: (){
-                     dynamic deletedIngredient = {
-                  "expiration_date": widget.expiration_date,
-                  "product_name": _productController.text,
-                  "quantity":int.parse(_quantityController.text)
-                 };
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(left: 5.0),
+                    child: IconButton(
+                      onPressed: (){
+                        dynamic deletedIngredient = {
+                      "expiration_date": widget.expiration_date,
+                      "product_name": _productController.text,
+                      "quantity":int.parse(_quantityController.text)
+                    };
 
-                 //print(deletedIngredient);
+                     //print(deletedIngredient);
 
-                 BlocProvider.of<AddProductsBloc>(context).add(
-                    DeleteProductEvent(deletedIngredient : deletedIngredient, id: widget.id));
+                    BlocProvider.of<AddProductsBloc>(context).add(
+                      DeleteProductEvent(deletedIngredient : deletedIngredient, id: widget.id));
 
-                    Navigator.pop(context);
-                  }, 
-                  icon: Icon(Icons.delete, color:Color.fromARGB(255, 122, 39, 160), size:30)
+                      Navigator.pop(context);
+                    }, 
+                    icon: Icon(Icons.delete, color:Color.fromARGB(255, 122, 39, 160), size:30)
                 ),
-              ),
-              TextButton(
-                onPressed: () {
-                  Navigator.pop(context, 'Cancel');
-                },
-                child: const Text('Cancel',
-                    style: TextStyle(
-                        color:
-                            Color.fromARGB(255, 122, 39, 160))),
-              ),
+                  ),
+              Row(
+                children: [
+                  TextButton(
+                    onPressed: () {
+                      Navigator.pop(context, 'Cancel');
+                    },
+                    child: const Text('Cancel',
+                        style: TextStyle(
+                            color:
+                                Color.fromARGB(255, 122, 39, 160))),
+                  ),
               TextButton(
                 onPressed: () {
                   //print("Product Name: ${_productController.text}");
@@ -120,21 +125,21 @@ class _EditFoodState extends State<EditFood> {
                   print("New Expiration Date: ${new_date}");
 
                  //TODO: Actualizar valores
-                 dynamic updatedIngredient = {
+                dynamic updatedIngredient = {
                   "expiration_date": new_date,
                   "product_name": _productController.text,
                   "quantity":int.parse(_quantityController.text)
-                 };
+                };
 
-                 dynamic deletedIngredient = {
+                dynamic deletedIngredient = {
                   "expiration_date": widget.expiration_date,
                   "product_name": widget.product_name,
                   "quantity": widget.quantity
-                 };
+                };
 
                  //print(updatedIngredient);
 
-                 BlocProvider.of<AddProductsBloc>(context).add(
+                BlocProvider.of<AddProductsBloc>(context).add(
                     UpdateProductEvent(updatedIngredient : updatedIngredient, id: widget.id, deletedIngredient:deletedIngredient));
                     
                   Navigator.pop(context, 'OK');
@@ -143,6 +148,10 @@ class _EditFoodState extends State<EditFood> {
                     style: TextStyle(
                         color:
                             Color.fromARGB(255, 122, 39, 160))),
+              ),
+                ],
+              ),
+                ],
               ),
             ]);
   }
