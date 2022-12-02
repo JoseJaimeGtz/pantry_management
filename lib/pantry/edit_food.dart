@@ -27,14 +27,13 @@ class EditFood extends StatefulWidget {
 }
 
 class _EditFoodState extends State<EditFood> {
-  static Timestamp get expiration_date => expiration_date;
+  //static Timestamp get expiration_date => expiration_date;
   //DateTime _new_date = DateTime.parse(expiration_date.toDate().toString());
-  DateTime _new_date = DateTime(2016, 10,1);
-  
+  DateTime _new_date = DateTime(2022, 10,1);
 
   set new_date(DateTime value) {
     _new_date = value;
-    print(expiration_date);
+    //print(expiration_date);
   }
   DateTime get new_date => _new_date;
 
@@ -206,7 +205,7 @@ class _EditFoodState extends State<EditFood> {
                               // This is called when the user changes the date.
                               onDateTimeChanged: (DateTime newDate) {
                                 setState(() => new_date = newDate);
-                                print("New date ${new_date}");
+                                //print("New date ${new_date}");
                               },
                             ),
                           ),
