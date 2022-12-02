@@ -29,7 +29,7 @@ class EditFood extends StatefulWidget {
 class _EditFoodState extends State<EditFood> {
   //static Timestamp get expiration_date => expiration_date;
   //DateTime _new_date = DateTime.parse(expiration_date.toDate().toString());
-  DateTime _new_date = DateTime(2022, 10,1);
+  DateTime _new_date = DateTime(2022, 12, 2);
 
   set new_date(DateTime value) {
     _new_date = value;
